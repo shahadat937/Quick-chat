@@ -6,14 +6,13 @@ const user = require("./../models/user");
 router.get("/get-logged-user", authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.userId });
-    console.log(user);
-    res.send({
+    res.status(200).send({
       message: "user fetched successfully",
       success: true,
       data: user,
     });
   } catch (error) {
-    res.status(400).send({
+    return res.status(400).send({
       message: error.message,
       success: false,
     });
@@ -25,7 +24,7 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
     const userid = req.userId;
     const allUsers = await User.find({ _id: { $ne: userid } });
 
-    res.send({
+    res.status(200).send({
       message: "All users fetched successfully",
       success: true,
       data: allUsers,

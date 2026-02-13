@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
     next();
   } catch (error) {
-    res.send({
+    res.status(401).send({
       message: error.message,
       success: false,
     });
